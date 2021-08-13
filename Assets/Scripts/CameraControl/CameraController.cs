@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 
 namespace Assets.Scripts.CameraControl {
+	[RequireComponent(typeof(Camera))]
 	public class CameraController : MonoBehaviour {
 
 		public CameraState State;
@@ -13,11 +14,13 @@ namespace Assets.Scripts.CameraControl {
 		public float MaxTilt = 45f;
 		public float MaxPan = 20f;
 
+		private Camera _cam;
 		private float _pan = 0;
 		private float _tilt = 0;
 
 		public void Awake() {
 			State = new CameraState();
+			_cam = GetComponent<Camera>();
 		}
 
 		public void Update() {
@@ -36,8 +39,8 @@ namespace Assets.Scripts.CameraControl {
 
 			if (State.Zoom != 0) {
 				var deltaZoom = Time.deltaTime * State.Zoom * ZoomRate;
-				Camera.main.fieldOfView *= 1f + deltaZoom;
-				Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, MaxFieldOfView);
+				_cam.fieldOfView *= 1f + deltaZoom;
+				_cam.fieldOfView = Mathf.Clamp(_cam.fieldOfView, 0.1f, MaxFieldOfView);
 			}
 		}
 	}

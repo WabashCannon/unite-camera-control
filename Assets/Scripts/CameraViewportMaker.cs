@@ -1,11 +1,10 @@
 using UnityEngine;
 
 namespace Assets.Scripts {
-	public class AspectRatioHandler : MonoBehaviour {
+	public class CameraViewportMaker : MonoBehaviour {
 
-		public GameObject ControlPanel;
-
-		public Camera MainCamera;
+		public Camera RearCamera;
+		public Camera PtzCamera;
 		public Camera UiCamera;
 
 		private const float ControlPanelWidthRatio = 800f / 1920f;
@@ -14,12 +13,20 @@ namespace Assets.Scripts {
 			var leftRatio = 1f - ControlPanelWidthRatio;
 			var rightRatio = ControlPanelWidthRatio;
 
-			// Set the lecture view camera to fill the left
-			MainCamera.rect = new Rect(
+			// Set the rear camera to the top-left
+			RearCamera.rect = new Rect(
+				x: 0f,
+				y: 0.5f,
+				width: leftRatio,
+				height: 0.5f
+			);
+
+			// Set the ptz camera to the top-left
+			PtzCamera.rect = new Rect(
 				x: 0f,
 				y: 0f,
 				width: leftRatio,
-				height: 1f
+				height: 0.5f
 			);
 
 			// Set the UI control panel camera to fill the right

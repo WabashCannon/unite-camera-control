@@ -6,14 +6,18 @@ namespace Assets.Scripts.CameraControl {
 		: MonoBehaviour,
 		IPointerUpHandler,
 		IPointerDownHandler,
-		IPointerExitHandler {
+		IPointerExitHandler 
+	{
 
 		public float Value;
 
-		protected CameraController Controller;
+		protected CameraController Controller
+			=> _rig.ActiveController;
+
+		private CameraRig _rig;
 
 		public void Awake() {
-			Controller = Camera.main.GetComponent<CameraController>();
+			_rig = FindObjectOfType<CameraRig>();
 		}
 
 		public void OnPointerDown(PointerEventData eventData)
